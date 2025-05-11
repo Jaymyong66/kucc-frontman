@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./SignupForm.module.css";
 
 const SignupForm: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+
     if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    // TODO: 회원가입 로직 구현
+
     console.log("Signup attempt:", { email, password, name });
   };
 
@@ -30,8 +33,7 @@ const SignupForm: React.FC = () => {
           <input
             type="text"
             id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
             className={styles.input}
             required
           />
@@ -43,8 +45,7 @@ const SignupForm: React.FC = () => {
           <input
             type="email"
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
             className={styles.input}
             required
           />
@@ -56,8 +57,7 @@ const SignupForm: React.FC = () => {
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
             className={styles.input}
             required
           />
@@ -69,8 +69,7 @@ const SignupForm: React.FC = () => {
           <input
             type="password"
             id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            name="confirmPassword"
             className={styles.input}
             required
           />

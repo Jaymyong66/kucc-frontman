@@ -1,5 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
 
 const App: React.FC = () => {
   return (
@@ -11,7 +13,12 @@ const App: React.FC = () => {
           alignItems: "center",
           justifyContent: "center",
         }}
-      ></div>
+      >
+        <Routes>
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/signup" element={<SignupForm />} />
+        </Routes>
+      </div>
     </Router>
   );
 };
